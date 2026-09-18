@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Painel Renover Digital</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+  html{ margin:0; }
+  body{ margin:0; background:#eef5fc; }
+  img{ max-width:100%; }
+  [hidden]{ display:none!important; }
+  :root{
+    --bg:#eef5fc;
+    --bg-2:#f8fbfe;
+    --surface:#ffffff;
+    --surface-soft:#eaf3fc;
+    --surface-soft-2:#dbe9f8;
+    --ink:#0b0e14;
+    --ink-2:#4b5768;
+    --ink-muted:#6b7686;
+    --border:rgba(11,14,20,.10);
+    --border-strong:rgba(11,14,20,.18);
+    --accent:#2563eb;
+    --accent-ink:#ffffff;
+    --accent-deep:#0b2a52;
+    --accent-sky:#4fb8f0;
+    --accent-tint:#e6eefd;
+    --good:#0a7d34;
+    --bad:#c62828;
+    --shadow:0 1px 2px rgba(11,14,20,.04), 0 8px 24px -12px rgba(11,14,20,.14);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0b1119;
+      --bg-2:#0e141d;
+      --surface:#161f2e;
+      --surface-soft:#182640;
+      --surface-soft-2:#1d2f4d;
+      --ink:#f2f5fa;
+      --ink-2:#c3cddb;
+      --ink-muted:#aab4c2;
+      --border:rgba(255,255,255,.10);
+      --border-strong:rgba(255,255,255,.18);
+      --accent:#5b9df5;
+      --accent-ink:#0b1119;
+      --accent-deep:#9db8dd;
+      --accent-sky:#7fd0f7;
+      --accent-tint:#182640;
+      --good:#34c759;
+      --bad:#ef5350;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b1119;
+    --bg-2:#0e141d;
+    --surface:#161f2e;
+    --surface-soft:#182640;
+    --surface-soft-2:#1d2f4d;
+    --ink:#f2f5fa;
+    --ink-2:#c3cddb;
+    --ink-muted:#aab4c2;
+    --border:rgba(255,255,255,.10);
+    --border-strong:rgba(255,255,255,.18);
+    --accent:#5b9df5;
+    --accent-ink:#0b1119;
+    --accent-deep:#9db8dd;
+    --accent-sky:#7fd0f7;
+    --accent-tint:#182640;
+    --good:#34c759;
+    --bad:#ef5350;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:0 48px;
+  }
+  h1,h2,h3{
+    font-family:"Montserrat", sans-serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .eyebrow{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+  }
+  a{color:var(--accent);}
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    position:sticky;
+    top:env(safe-area-inset-top, 0px);
+    z-index:40;
+    background:linear-gradient(180deg, var(--bg) 0%, var(--bg) 70%, transparent 100%);
+    padding-top:22px;
+    padding-bottom:14px;
+  }
+  .brand-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand-mark{
+    width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(155deg, var(--accent) 0%, var(--accent-deep) 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow);
+    flex:none;
+  }
+  .brand-mark svg{width:20px;height:20px;}
+  .brand-word{
+    font-weight:800;
+    font-size:18px;
+    letter-spacing:-.01em;
+    line-height:1.05;
+  }
+  .brand-word span{
+    display:block;
+    font-weight:600;
+    font-size:10.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+    margin-top:2px;
+  }
+  .report-tag{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-2);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:7px 12px;
+    border-radius:999px;
+    box-shadow:var(--shadow);
+  }
+  .report-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--good);flex:none;}
+
+  .filter-bar{
+    display:flex;
+    align-items:flex-end;
+    gap:12px;
+    flex-wrap:wrap;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:14px 16px;
+    box-shadow:var(--shadow);
+  }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    min-width:190px;
+    flex:1 1 190px;
+  }
+  .field label{
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+  }
+  .field select{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--ink);
+    background:var(--bg-2);
+    border:1px solid var(--border-strong);
+    border-radius:10px;
+    padding:9px 34px 9px 12px;
+    appearance:none;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%236b7686" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+    cursor:pointer;
+  }
+  .field select:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+  .quicknav{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    align-self:flex-end;
+    margin-left:auto;
+  }
+  .quicknav a{
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+    color:var(--ink-2);
+    background:var(--surface-soft);
+    border:1px solid var(--border);
+    padding:9px 12px;
+    border-radius:10px;
+    white-space:nowrap;
+  }
+  .quicknav a:hover{border-color:var(--border-strong);}
+
+  /* ---------- intro ---------- */
+  .intro{
+    margin-top:22px;
+    background:linear-gradient(155deg, var(--accent-deep) 0%, #143a6b 55%, var(--accent) 130%);
+    border-radius:20px;
+    padding:26px 26px 24px;
+    color:#fff;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .intro::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(520px 220px at 88% -10%, rgba(255,255,255,.16), transparent 60%);
+    pointer-events:none;
+  }
+  .intro h2{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:4px;
+  }
+  .intro .period-range{
+    font-size:12.5px;
+    font-weight:600;
+    color:rgba(255,255,255,.78);
+    margin-bottom:14px;
+  }
+  .intro p{
+    font-size:14px;
+    line-height:1.65;
+    color:rgba(255,255,255,.94);
+    max-width:78ch;
+    margin:0 0 10px;
+  }
+  .intro p:last-child{margin-bottom:0;}
+  .intro strong{font-weight:700;}
+
+  /* ---------- KPI row ---------- */
+  .kpis{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  .kpi-tile{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+  }
+  .kpi-tile .klabel{
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--ink-muted);
+    letter-spacing:.02em;
+    margin-bottom:8px;
+  }
+  .kpi-tile .kvalue{
+    font-size:26px;
+    font-weight:800;
+    letter-spacing:-.01em;
+    line-height:1;
+  }
+  .kpi-tile .kfoot{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .kpi-tile .kprev{
+    font-size:11.5px;
+    color:var(--ink-muted);
+    font-weight:600;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:11.5px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .pill.up.good, .pill.down.good{background:rgba(10,125,52,.12); color:var(--good);}
+  .pill.up.bad, .pill.down.bad{background:rgba(198,40,40,.12); color:var(--bad);}
+  :root[data-theme="dark"] .pill.up.good, :root[data-theme="dark"] .pill.down.good{background:rgba(52,199,89,.16);}
+  :root[data-theme="dark"] .pill.up.bad, :root[data-theme="dark"] .pill.down.bad{background:rgba(239,83,80,.16);}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .pill.up.good, :root:not([data-theme="light"]) .pill.down.good{background:rgba(52,199,89,.16);}
+    :root:not([data-theme="light"]) .pill.up.bad, :root:not([data-theme="light"]) .pill.down.bad{background:rgba(239,83,80,.16);}
+  }
+  .pill svg{width:11px;height:11px;}
+
+  /* ---------- section shell ---------- */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+    margin:34px 0 12px;
+    flex-wrap:wrap;
+  }
+  .section-head h3{font-size:15.5px; font-weight:800;}
+  .section-head .sub{font-size:12px; color:var(--ink-muted); font-weight:600;}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- comparativo (3 mini charts) ---------- */
+  .compare-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  .compare-card{padding:16px 16px 8px;}
+  .compare-card .ctitle{
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink-2);
+    margin-bottom:2px;
+  }
+  .compare-card .cunit{
+    font-size:10.5px;
+    color:var(--ink-muted);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .legend-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    align-items:center;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--ink-2);
+    margin:2px 0 10px;
+  }
+  .legend-row .key{display:inline-flex;align-items:center;gap:6px;}
+  .legend-row .swatch{width:10px;height:10px;border-radius:3px;flex:none;}
+  .legend-row .swatch.line{width:14px;height:3px;border-radius:2px;}
+
+  /* ---------- platform sections ---------- */
+  .platform-card{
+    padding:20px 22px 22px;
+  }
+  .platform-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .platform-id{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .p-icon{
+    width:40px;height:40px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+    box-shadow:0 1px 1px rgba(0,0,0,.05);
+  }
+  .p-icon svg{width:20px;height:20px;}
+  .platform-id h3{font-size:16.5px; font-weight:800;}
+  .platform-id .p-sub{font-size:11.5px; color:var(--ink-muted); font-weight:600;}
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .stat{
+    background:var(--surface-soft);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:12px 14px;
+  }
+  .stat .slabel{font-size:11px;font-weight:700;color:var(--ink-muted);margin-bottom:6px;}
+  .stat .svalue{font-size:19px;font-weight:800;letter-spacing:-.01em;}
+  .stat .sfoot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:6px;}
+  .stat .sprev{font-size:11px;color:var(--ink-muted);font-weight:600;}
+
+  .platform-body{
+    display:grid;
+    grid-template-columns:1.15fr 1fr;
+    gap:18px;
+    align-items:start;
+  }
+  .chart-box{
+    background:var(--bg-2);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:14px 16px 10px;
+  }
+  .chart-title{font-size:12.5px;font-weight:700;color:var(--ink-2);margin-bottom:2px;}
+  .chart-unit{font-size:10.5px;color:var(--ink-muted);font-weight:600;margin-bottom:6px;}
+
+  table.data-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+  }
+  table.data-table caption{
+    text-align:left;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink-2);
+    margin-bottom:6px;
+  }
+  table.data-table th, table.data-table td{
+    padding:7px 8px;
+    text-align:right;
+    border-bottom:1px solid var(--border);
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+  }
+  table.data-table th:first-child, table.data-table td:first-child{text-align:left; font-variant-numeric:normal;}
+  table.data-table thead th{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-muted);
+    font-weight:700;
+    border-bottom:1px solid var(--border-strong);
+  }
+  table.data-table tbody tr.subtotal td{font-weight:800; border-top:1px solid var(--border-strong);}
+  table.data-table tbody tr.subtotal.anterior td{border-bottom:1px solid var(--border-strong);}
+  table.data-table tbody tr.variacao td{font-weight:700;}
+  .table-wrap{overflow-x:auto;}
+  details.table-toggle summary{
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    color:var(--accent);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    margin-top:4px;
+  }
+  details.table-toggle summary::-webkit-details-marker{display:none;}
+  details.table-toggle summary svg{width:12px;height:12px;transition:transform .15s;}
+  details.table-toggle[open] summary svg{transform:rotate(90deg);}
+  details.table-toggle{margin-top:12px;}
+  details.table-toggle .table-wrap{margin-top:10px;}
+
+  /* ---------- svg chart bits ---------- */
+  .bar-svg{width:100%;height:auto;display:block;overflow:visible;}
+  .bar-svg .gridline{stroke:var(--border-strong);stroke-width:1;shape-rendering:crispEdges;}
+  .bar-svg .axis-label{fill:var(--ink-muted);font-size:9.5px;font-weight:600;font-family:"Montserrat",sans-serif;}
+  .bar-svg .value-label{fill:var(--ink);font-size:10.5px;font-weight:700;font-family:"Montserrat",sans-serif;}
+  .bar-svg .cat-label{fill:var(--ink-2);font-size:10px;font-weight:700;font-family:"Montserrat",sans-serif;}
+  .bar-svg rect.mark{cursor:pointer;transition:opacity .12s;}
+  .bar-svg rect.mark:hover, .bar-svg rect.mark.hover{opacity:.82;}
+
+  .chart-tip{
+    position:fixed;
+    z-index:80;
+    pointer-events:none;
+    background:var(--ink);
+    color:var(--bg);
+    font-size:11.5px;
+    font-weight:600;
+    padding:7px 10px;
+    border-radius:9px;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    opacity:0;
+    transform:translate(-50%,-100%);
+    transition:opacity .08s;
+    white-space:nowrap;
+  }
+  .chart-tip strong{font-weight:800;}
+  .chart-tip.show{opacity:1;}
+
+  /* ---------- footer ---------- */
+  footer.page-footer{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    font-size:11.5px;
+    color:var(--ink-muted);
+    font-weight:600;
+  }
+  footer.page-footer .f-brand{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-weight:700;}
+  footer.page-footer .f-brand .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+  @media (max-width:860px){
+    .kpis{grid-template-columns:1fr;}
+    .compare-grid{grid-template-columns:1fr;}
+    .platform-body{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:1fr;}
+    .quicknav{margin-left:0;}
+  }
+  @media (max-width:420px){
+    .field{min-width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="topbar">
+    <div class="brand-row">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 4 8-9"/><path d="M14 6h6v6"/></svg>
+        </div>
+        <div class="brand-word">Renover Digital<span>Tráfego pago · Performance</span></div>
+      </div>
+      <div class="report-tag"><span class="dot"></span><span id="report-tag-text">Relatório bienal de campanhas</span></div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="field">
+        <label for="sel-page">Página / Cliente</label>
+        <select id="sel-page"></select>
+      </div>
+      <div class="field">
+        <label for="sel-period">Período do relatório</label>
+        <select id="sel-period"></select>
+      </div>
+      <nav class="quicknav" aria-label="Ir para plataforma">
+        <a href="#visao-geral">Visão geral</a>
+        <a href="#meta">Meta</a>
+        <a href="#google">Google</a>
+        <a href="#tiktok">TikTok</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" id="visao-geral">
+      <h2>Resumo do período</h2>
+      <div class="period-range" id="intro-range"></div>
+      <div id="intro-text"></div>
+    </section>
+
+    <div class="kpis" id="kpi-row"></div>
+
+    <section>
+      <div class="section-head">
+        <h3>Comparativo entre plataformas</h3>
+        <span class="sub">Período atual vs. mesmas datas do mês anterior</span>
+      </div>
+      <div class="compare-grid" id="compare-grid"></div>
+    </section>
+
+    <section id="meta"></section>
+    <section id="google"></section>
+    <section id="tiktok"></section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="f-brand"><span class="dot"></span>Renover Digital</div>
+    <div id="footer-note"></div>
+  </footer>
+</div>
+
+<div class="chart-tip" id="chart-tip" role="tooltip"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================
+   1. DADOS
+   Estrutura pensada para crescer: novas páginas entram em
+   DATA.pages[]; novos ciclos (a cada 2 dias) entram em
+   page.periods[]. Os seletores acima são preenchidos a partir
+   daqui automaticamente — nada de HTML para editar à mão.
+   ========================================================= */
+
+const DATA = {
+  pages: [
+    {
+      id: "granazen",
+      name: "GranaZen",
+      periods: [
+        {
+          id: "2026-09-16_17",
+          label: "16–17 set/2026",
+          atualRangeLabel: "16 a 17 de setembro de 2026",
+          anteriorRangeLabel: "16 a 17 de agosto de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "16/09", period: "atual",    invest: 393.42, results: 16, cpr: 24.59 },
+                { date: "17/09", period: "atual",    invest: 355.02, results: 5, cpr: 71.00 },
+                { date: "16/08", period: "anterior", invest: 427.40, results: 13, cpr: 32.88 },
+                { date: "17/08", period: "anterior", invest: 376.39, results: 12, cpr: 31.37 }
+              ],
+              atual:    { invest: 748.44, results: 21, cpr: 35.64 },
+              anterior: { invest: 803.79, results: 25, cpr: 32.15 },
+              varInvest: -6.89, varResults: -16.00, varCpr: 10.85
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "16/09", period: "atual",    invest: 431.99, results: 6, cpr: 72.00 },
+                { date: "17/09", period: "atual",    invest: 459.80, results: 8, cpr: 57.48 },
+                { date: "16/08", period: "anterior", invest: 629.35, results: 13, cpr: 48.41 },
+                { date: "17/08", period: "anterior", invest: 555.08, results: 16, cpr: 34.69 }
+              ],
+              atual:    { invest: 891.79, results: 14, cpr: 63.70 },
+              anterior: { invest: 1184.43, results: 29, cpr: 40.84 },
+              varInvest: -24.71, varResults: -51.72, varCpr: 55.96
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "16/09", period: "atual",    invest: 49.99, results: 4, cpr: 12.50 },
+                { date: "17/09", period: "atual",    invest: 35.57, results: 0, cpr: 0.00 },
+                { date: "16/08", period: "anterior", invest: 0.00, results: 0, cpr: 0.00 },
+                { date: "17/08", period: "anterior", invest: 0.00, results: 0, cpr: 0.00 }
+              ],
+              atual:    { invest: 85.56, results: 4, cpr: 21.39 },
+              anterior: { invest: 0.00, results: 0, cpr: 0.00 },
+              varInvest: 0.00, varResults: 0.00, varCpr: 0.00
+            }
+          },
+          totals: {
+            atual:    { invest: 1725.79, results: 39, cpr: 44.25 },
+            anterior: { invest: 1988.22, results: 54, cpr: 36.82 },
+            varInvest: -13.20, varResults: -27.78, varCpr: 20.19
+          }
+        },
+        {
+          id: "2026-09-14_15",
+          label: "14–15 set/2026",
+          atualRangeLabel: "14 a 15 de setembro de 2026",
+          anteriorRangeLabel: "14 a 15 de agosto de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "14/09", period: "atual",    invest: 418.17, results: 7, cpr: 59.74 },
+                { date: "15/09", period: "atual",    invest: 439.08, results: 6, cpr: 73.18 },
+                { date: "14/08", period: "anterior", invest: 402.24, results: 10, cpr: 40.22 },
+                { date: "15/08", period: "anterior", invest: 393.26, results: 6, cpr: 65.54 }
+              ],
+              atual:    { invest: 857.25, results: 13, cpr: 65.94 },
+              anterior: { invest: 795.50, results: 16, cpr: 49.72 },
+              varInvest: 7.76, varResults: -18.75, varCpr: 32.63
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "14/09", period: "atual",    invest: 500.05, results: 16, cpr: 31.25 },
+                { date: "15/09", period: "atual",    invest: 487.03, results: 20, cpr: 24.35 },
+                { date: "14/08", period: "anterior", invest: 511.15, results: 18, cpr: 28.40 },
+                { date: "15/08", period: "anterior", invest: 524.52, results: 9, cpr: 58.28 }
+              ],
+              atual:    { invest: 987.08, results: 36, cpr: 27.42 },
+              anterior: { invest: 1035.67, results: 27, cpr: 38.36 },
+              varInvest: -4.69, varResults: 33.33, varCpr: -28.52
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "14/09", period: "atual",    invest: 60.95, results: 0, cpr: 0.00 },
+                { date: "15/09", period: "atual",    invest: 38.98, results: 0, cpr: 0.00 },
+                { date: "14/08", period: "anterior", invest: 46.93, results: 0, cpr: 0.00 },
+                { date: "15/08", period: "anterior", invest: 42.13, results: 0, cpr: 0.00 }
+              ],
+              atual:    { invest: 99.93, results: 0, cpr: 0.00 },
+              anterior: { invest: 89.06, results: 0, cpr: 0.00 },
+              varInvest: 12.21, varResults: 0.00, varCpr: 0.00
+            }
+          },
+          totals: {
+            atual:    { invest: 1944.26, results: 49, cpr: 39.68 },
+            anterior: { invest: 1920.23, results: 43, cpr: 44.66 },
+            varInvest: 1.25, varResults: 13.95, varCpr: -11.15
+          }
+        },
+        {
+          id: "2026-09-12_13",
+          label: "12–13 set/2026",
+          atualRangeLabel: "12 a 13 de setembro de 2026",
+          anteriorRangeLabel: "12 a 13 de agosto de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "12/09", period: "atual",    invest: 258.65, results: 10, cpr: 25.87 },
+                { date: "13/09", period: "atual",    invest: 375.20, results: 7, cpr: 53.60 },
+                { date: "12/08", period: "anterior", invest: 678.46, results: 16, cpr: 42.40 },
+                { date: "13/08", period: "anterior", invest: 427.29, results: 7, cpr: 61.04 }
+              ],
+              atual:    { invest: 633.85, results: 17, cpr: 37.29 },
+              anterior: { invest: 1105.75, results: 23, cpr: 48.08 },
+              varInvest: -42.68, varResults: -26.09, varCpr: -22.45
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "12/09", period: "atual",    invest: 482.44, results: 13, cpr: 37.11 },
+                { date: "13/09", period: "atual",    invest: 514.00, results: 12, cpr: 42.83 },
+                { date: "12/08", period: "anterior", invest: 540.58, results: 13, cpr: 41.58 },
+                { date: "13/08", period: "anterior", invest: 533.96, results: 19, cpr: 28.10 }
+              ],
+              atual:    { invest: 996.44, results: 25, cpr: 39.86 },
+              anterior: { invest: 1074.54, results: 32, cpr: 33.58 },
+              varInvest: -7.27, varResults: -21.88, varCpr: 18.70
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "12/09", period: "atual",    invest: 49.98, results: 0, cpr: 0.00 },
+                { date: "13/09", period: "atual",    invest: 51.20, results: 4, cpr: 12.80 },
+                { date: "12/08", period: "anterior", invest: 59.52, results: 7, cpr: 8.50 },
+                { date: "13/08", period: "anterior", invest: 32.96, results: 1, cpr: 32.96 }
+              ],
+              atual:    { invest: 101.18, results: 4, cpr: 25.30 },
+              anterior: { invest: 92.48, results: 8, cpr: 11.56 },
+              varInvest: 9.41, varResults: -50.00, varCpr: 118.81
+            }
+          },
+          totals: {
+            atual:    { invest: 1731.47, results: 46, cpr: 37.64 },
+            anterior: { invest: 2272.77, results: 63, cpr: 36.08 },
+            varInvest: -23.82, varResults: -26.98, varCpr: 4.34
+          }
+        },
+        {
+          id: "2026-09-08_09",
+          label: "08–09 set/2026",
+          atualRangeLabel: "08 a 09 de setembro de 2026",
+          anteriorRangeLabel: "08 a 09 de agosto de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "08/09", period: "atual",    invest: 437.10, results: 15, cpr: 29.14 },
+                { date: "09/09", period: "atual",    invest: 422.86, results: 8, cpr: 52.86 },
+                { date: "08/08", period: "anterior", invest: 480.81, results: 8, cpr: 60.10 },
+                { date: "09/08", period: "anterior", invest: 515.89, results: 5, cpr: 103.18 }
+              ],
+              atual:    { invest: 859.96, results: 23, cpr: 37.39 },
+              anterior: { invest: 996.70, results: 13, cpr: 76.67 },
+              varInvest: -13.72, varResults: 76.92, varCpr: -51.23
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "08/09", period: "atual",    invest: 803.56, results: 20, cpr: 40.18 },
+                { date: "09/09", period: "atual",    invest: 460.99, results: 15, cpr: 30.73 },
+                { date: "08/08", period: "anterior", invest: 452.42, results: 18, cpr: 25.13 },
+                { date: "09/08", period: "anterior", invest: 612.32, results: 17, cpr: 36.02 }
+              ],
+              atual:    { invest: 1264.55, results: 35, cpr: 36.13 },
+              anterior: { invest: 1064.74, results: 35, cpr: 30.42 },
+              varInvest: 18.77, varResults: 0.00, varCpr: 18.77
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "08/09", period: "atual",    invest: 66.86, results: 2, cpr: 33.43 },
+                { date: "09/09", period: "atual",    invest: 92.44, results: 2, cpr: 46.22 },
+                { date: "08/08", period: "anterior", invest: 41.38, results: 0, cpr: 0.00 },
+                { date: "09/08", period: "anterior", invest: 59.15, results: 0, cpr: 0.00 }
+              ],
+              atual:    { invest: 159.30, results: 4, cpr: 39.83 },
+              anterior: { invest: 100.53, results: 0, cpr: 0.00 },
+              varInvest: 58.46, varResults: 0.00, varCpr: 0.00
+            }
+          },
+          totals: {
+            atual:    { invest: 2283.81, results: 62, cpr: 36.84 },
+            anterior: { invest: 2161.97, results: 48, cpr: 45.04 },
+            varInvest: 5.64, varResults: 29.17, varCpr: -18.22
+          }
+        },
+        {
+          id: "2026-08-03_04",
+          label: "03–04 ago/2026",
+          atualRangeLabel: "03 a 04 de agosto de 2026",
+          anteriorRangeLabel: "03 a 04 de julho de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "03/08", period: "atual",    invest: 531.48, results: 15, cpr: 35.43 },
+                { date: "04/08", period: "atual",    invest: 501.23, results: 15, cpr: 33.42 },
+                { date: "03/07", period: "anterior", invest: 307.75, results: 14, cpr: 21.98 },
+                { date: "04/07", period: "anterior", invest: 307.32, results: 10, cpr: 30.73 }
+              ],
+              atual:    { invest: 1032.71, results: 30, cpr: 34.42 },
+              anterior: { invest: 615.07,  results: 24, cpr: 25.63 },
+              varInvest: 67.90, varResults: 25.00, varCpr: 34.32
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "03/08", period: "atual",    invest: 598.16, results: 23, cpr: 26.01 },
+                { date: "04/08", period: "atual",    invest: 564.61, results: 21, cpr: 26.89 },
+                { date: "03/07", period: "anterior", invest: 358.04, results: 31, cpr: 11.55 },
+                { date: "04/07", period: "anterior", invest: 472.44, results: 30, cpr: 15.75 }
+              ],
+              atual:    { invest: 1162.77, results: 44, cpr: 26.43 },
+              anterior: { invest: 830.48,  results: 61, cpr: 13.61 },
+              varInvest: 40.01, varResults: -27.87, varCpr: 94.11
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "03/08", period: "atual",    invest: 50.36,  results: 0, cpr: 0.00 },
+                { date: "04/08", period: "atual",    invest: 50.50,  results: 1, cpr: 50.50 },
+                { date: "03/07", period: "anterior", invest: 90.17,  results: 0, cpr: 0.00 },
+                { date: "04/07", period: "anterior", invest: 110.13, results: 7, cpr: 15.73 }
+              ],
+              atual:    { invest: 100.86, results: 1, cpr: 100.86 },
+              anterior: { invest: 200.30, results: 7, cpr: 28.61 },
+              varInvest: -49.65, varResults: -85.71, varCpr: 252.48
+            }
+          },
+          totals: {
+            atual:    { invest: 2296.34, results: 75, cpr: 30.62 },
+            anterior: { invest: 1645.85, results: 92, cpr: 17.89 },
+            varInvest: 39.52, varResults: -18.48, varCpr: 71.15
+          }
+        }
+      ]
+    }
+  ]
+};
+
+/* =========================================================
+   2. ESTILO DAS PLATAFORMAS (cor + ícone)
+   Uma família de azul só (identidade Renover Digital); cada
+   plataforma tem um tom + um ícone próprio, então a leitura
+   nunca depende só da cor.
+   ========================================================= */
+
+const PLATFORM_STYLE = {
+  meta:   { dark: "#2563eb", light: "#a9c8fb", tint: "#e6eefd", solidText: "#ffffff",
+            icon: iconCircles },
+  google: { dark: "#0b2a52", light: "#9db6d6", tint: "#e4eaf2", solidText: "#ffffff",
+            icon: iconSearch },
+  tiktok: { dark: "#0f8fc4", light: "#a9e2f6", tint: "#e2f5fc", solidText: "#ffffff",
+            icon: iconNote }
+};
+const PLATFORM_ORDER = ["meta", "google", "tiktok"];
+
+function iconCircles(stroke){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="'+stroke+'" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="10" r="4"/><path d="M3.5 19c.8-3 3-4.6 5.5-4.6s4.7 1.6 5.5 4.6"/><circle cx="17.2" cy="8.6" r="3"/><path d="M14.8 14.6c2.1.1 3.9 1.6 4.6 4.1"/></svg>';
+}
+function iconSearch(stroke){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="'+stroke+'" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>';
+}
+function iconNote(stroke){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="'+stroke+'" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l10-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>';
+}
+
+/* =========================================================
+   3. FORMATADORES
+   ========================================================= */
+
+const fmtBRL = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
+const fmtInt = new Intl.NumberFormat("pt-BR");
+function fmtPct(v){
+  const s = (v >= 0 ? "+" : "") + v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return s + "%";
+}
+function esc(str){
+  const d = document.createElement("div");
+  d.textContent = String(str);
+  return d.innerHTML;
+}
+
+/* direção "boa" por métrica: investimento é informativo (neutro),
+   resultados: subir é bom. custo por resultado: subir é ruim. */
+function metricGoodDirection(metric, delta){
+  if (metric === "results") return delta >= 0;
+  if (metric === "cpr") return delta < 0;
+  return null; // investimento: neutro, sem selo verde/vermelho
+}
+
+function pillHTML(delta, metric){
+  const dir = delta >= 0 ? "up" : "down";
+  const good = metricGoodDirection(metric, delta);
+  const tone = good === null ? "" : (good ? "good" : "bad");
+  const arrow = delta >= 0
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  if (tone === ""){
+    return '<span class="pill" style="background:var(--surface-soft-2);color:var(--ink-2);">'+arrow+esc(fmtPct(delta))+'</span>';
+  }
+  return '<span class="pill '+dir+' '+tone+'">'+arrow+esc(fmtPct(delta))+'</span>';
+}
+
+/* =========================================================
+   4. TOOLTIP COMPARTILHADO (gráficos)
+   ========================================================= */
+
+const tipEl = document.getElementById("chart-tip");
+function showTip(x, y, html){
+  tipEl.innerHTML = html;
+  tipEl.style.left = x + "px";
+  tipEl.style.top = (y - 10) + "px";
+  tipEl.classList.add("show");
+}
+function hideTip(){ tipEl.classList.remove("show"); }
+
+function bindTip(el, getHtml){
+  el.addEventListener("pointerenter", function(e){
+    el.classList.add("hover");
+    showTip(e.clientX, e.clientY, getHtml());
+  });
+  el.addEventListener("pointermove", function(e){
+    showTip(e.clientX, e.clientY, getHtml());
+  });
+  el.addEventListener("pointerleave", function(){
+    el.classList.remove("hover");
+    hideTip();
+  });
+  el.addEventListener("focus", function(e){
+    const r = el.getBoundingClientRect();
+    el.classList.add("hover");
+    showTip(r.left + r.width/2, r.top, getHtml());
+  });
+  el.addEventListener("blur", function(){
+    el.classList.remove("hover");
+    hideTip();
+  });
+  el.setAttribute("tabindex", "0");
+}
+
+/* =========================================================
+   5. GRÁFICO — comparação diária (atual x anterior), 1 matiz,
+      2 tons, por plataforma.
+   ========================================================= */
+
+function renderDailyChart(container, platform, style, formatter, unit){
+  const atualDays = platform.days.filter(d => d.period === "atual");
+  const anteriorDays = platform.days.filter(d => d.period === "anterior");
+  const n = atualDays.length;
+  const key = (unit === "R$") ? "invest" : (unit === "resultados" ? "results" : "cpr");
+
+  const allVals = platform.days.map(d => d[key]);
+  const maxVal = Math.max(1, ...allVals);
+  const niceMax = maxVal * 1.28;
+
+  const W = 460, H = 190;
+  const padL = 8, padR = 8, padT = 10, padB = 26;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const groupW = plotW / n;
+  const barW = Math.min(30, groupW * 0.30);
+  const gap = 6;
+
+  function y(v){ return padT + plotH - (v / niceMax) * plotH; }
+
+  let bars = "";
+  let gridlines = "";
+  const steps = 3;
+  for (let i = 0; i <= steps; i++){
+    const v = (niceMax / steps) * i;
+    const yy = y(v);
+    gridlines += '<line class="gridline" x1="'+padL+'" x2="'+(W-padR)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'"/>';
+  }
+
+  for (let i = 0; i < n; i++){
+    const gx = padL + groupW * i + groupW/2;
+    const a = atualDays[i], p = anteriorDays[i];
+    const ax = gx - gap/2 - barW;
+    const px = gx + gap/2;
+    const aVal = a[key], pVal = p[key];
+    const aY = y(aVal), pY = y(pVal);
+    const aH = Math.max(1, padT + plotH - aY);
+    const pH = Math.max(1, padT + plotH - pY);
+
+    const aLabel = formatter(aVal);
+    const pLabel = formatter(pVal);
+
+    bars += '<g>';
+    bars += '<rect class="mark" data-tip-a="'+i+'" x="'+ax.toFixed(1)+'" y="'+aY.toFixed(1)+'" width="'+barW+'" height="'+aH.toFixed(1)+'" rx="4" fill="'+style.dark+'"/>';
+    bars += '<rect class="mark" data-tip-p="'+i+'" x="'+px.toFixed(1)+'" y="'+pY.toFixed(1)+'" width="'+barW+'" height="'+pH.toFixed(1)+'" rx="4" fill="'+style.light+'"/>';
+    bars += '<text class="value-label" x="'+(ax+barW/2).toFixed(1)+'" y="'+(aY-5).toFixed(1)+'" text-anchor="middle">'+esc(aLabel)+'</text>';
+    bars += '<text class="value-label" x="'+(px+barW/2).toFixed(1)+'" y="'+(pY-5).toFixed(1)+'" text-anchor="middle" opacity=".65">'+esc(pLabel)+'</text>';
+    bars += '<text class="cat-label" x="'+gx.toFixed(1)+'" y="'+(H-6).toFixed(1)+'" text-anchor="middle">'+esc(a.date)+' / '+esc(p.date.slice(0,2)+'/'+p.date.slice(3))+'</text>';
+    bars += '</g>';
+  }
+
+  container.innerHTML =
+    '<svg class="bar-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Comparação diária de '+esc(platform.name)+'">' +
+      gridlines + bars +
+    '</svg>';
+
+  const svg = container.querySelector("svg");
+  for (let i = 0; i < n; i++){
+    const a = atualDays[i], p = anteriorDays[i];
+    const aEl = svg.querySelector('[data-tip-a="'+i+'"]');
+    const pEl = svg.querySelector('[data-tip-p="'+i+'"]');
+    bindTip(aEl, function(){ return '<strong>'+esc(formatter(a[key]))+'</strong> · '+esc(a.date)+' (atual)'; });
+    bindTip(pEl, function(){ return '<strong>'+esc(formatter(p[key]))+'</strong> · '+esc(p.date)+' (mês anterior)'; });
+  }
+}
+
+/* =========================================================
+   6. GRÁFICO — comparativo entre plataformas (1 métrica)
+   ========================================================= */
+
+function renderPlatformCompareChart(container, period, metricKey, formatter){
+  const W = 340, H = 168;
+  const padL = 10, padR = 10, padT = 10, padB = 30;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const n = PLATFORM_ORDER.length;
+  const slot = plotW / n;
+  const barW = Math.min(48, slot * 0.5);
+
+  const vals = PLATFORM_ORDER.map(k => period.platforms[k].atual[metricKey]);
+  const maxVal = Math.max(1, ...vals);
+  const niceMax = maxVal * 1.3;
+  function y(v){ return padT + plotH - (v / niceMax) * plotH; }
+
+  let gridlines = "";
+  const steps = 3;
+  for (let i = 0; i <= steps; i++){
+    const yy = y((niceMax/steps)*i);
+    gridlines += '<line class="gridline" x1="'+padL+'" x2="'+(W-padR)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'"/>';
+  }
+
+  let bars = "";
+  PLATFORM_ORDER.forEach(function(k, i){
+    const p = period.platforms[k];
+    const style = PLATFORM_STYLE[k];
+    const v = p.atual[metricKey];
+    const cx = padL + slot*i + slot/2;
+    const bx = cx - barW/2;
+    const yy = y(v);
+    const h = Math.max(1, padT + plotH - yy);
+    bars += '<g>';
+    bars += '<rect class="mark" data-tip-plat="'+k+'" x="'+bx.toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" rx="4" fill="'+style.dark+'"/>';
+    bars += '<text class="value-label" x="'+cx.toFixed(1)+'" y="'+(yy-6).toFixed(1)+'" text-anchor="middle">'+esc(formatter(v))+'</text>';
+    bars += '<text class="cat-label" x="'+cx.toFixed(1)+'" y="'+(H-6).toFixed(1)+'" text-anchor="middle">'+esc(p.name.replace(" Ads",""))+'</text>';
+    bars += '</g>';
+  });
+
+  container.innerHTML =
+    '<svg class="bar-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Comparativo entre plataformas">' +
+      gridlines + bars +
+    '</svg>';
+
+  const svg = container.querySelector("svg");
+  PLATFORM_ORDER.forEach(function(k){
+    const el = svg.querySelector('[data-tip-plat="'+k+'"]');
+    const p = period.platforms[k];
+    bindTip(el, function(){ return '<strong>'+esc(formatter(p.atual[metricKey]))+'</strong> · '+esc(p.name); });
+  });
+}
+
+/* =========================================================
+   7. TABELA por plataforma (mesma leitura da planilha)
+   ========================================================= */
+
+function renderTable(platform){
+  const rowsAtual = platform.days.filter(d => d.period === "atual")
+    .map(d => '<tr><td>'+esc(d.date)+'</td><td>Atual</td><td>'+esc(fmtBRL.format(d.invest))+'</td><td>'+esc(fmtInt.format(d.results))+'</td><td>'+esc(fmtBRL.format(d.cpr))+'</td></tr>').join("");
+  const rowsAnterior = platform.days.filter(d => d.period === "anterior")
+    .map(d => '<tr><td>'+esc(d.date)+'</td><td>Anterior</td><td>'+esc(fmtBRL.format(d.invest))+'</td><td>'+esc(fmtInt.format(d.results))+'</td><td>'+esc(fmtBRL.format(d.cpr))+'</td></tr>').join("");
+
+  return '' +
+  '<div class="table-wrap">' +
+  '<table class="data-table">' +
+    '<caption>Detalhamento diário — '+esc(platform.name)+'</caption>' +
+    '<thead><tr><th>Data</th><th>Período</th><th>Investimento</th><th>Resultados</th><th>Custo/Resultado</th></tr></thead>' +
+    '<tbody>' +
+      rowsAtual +
+      '<tr class="subtotal atual"><td>Subtotal</td><td>Atual</td><td>'+esc(fmtBRL.format(platform.atual.invest))+'</td><td>'+esc(fmtInt.format(platform.atual.results))+'</td><td>'+esc(fmtBRL.format(platform.atual.cpr))+'</td></tr>' +
+      rowsAnterior +
+      '<tr class="subtotal anterior"><td>Subtotal</td><td>Anterior</td><td>'+esc(fmtBRL.format(platform.anterior.invest))+'</td><td>'+esc(fmtInt.format(platform.anterior.results))+'</td><td>'+esc(fmtBRL.format(platform.anterior.cpr))+'</td></tr>' +
+      '<tr class="variacao"><td colspan="2">Variação % (atual vs. anterior)</td><td>'+esc(fmtPct(platform.varInvest))+'</td><td>'+esc(fmtPct(platform.varResults))+'</td><td>'+esc(fmtPct(platform.varCpr))+'</td></tr>' +
+    '</tbody>' +
+  '</table>' +
+  '</div>';
+}
+
+/* =========================================================
+   8. RESUMO AUTOMÁTICO (texto de introdução)
+   ========================================================= */
+
+function buildIntro(pageName, period){
+  const t = period.totals;
+  const investWord = t.varInvest >= 0 ? "a mais" : "a menos";
+  const resultWord = t.varResults >= 0 ? "alta" : "queda";
+  const cprWord = t.varCpr >= 0 ? "subiu" : "caiu";
+
+  let best = null, worst = null;
+  PLATFORM_ORDER.forEach(function(k){
+    const p = period.platforms[k];
+    if (best === null || p.varCpr < period.platforms[best].varCpr) best = k;
+    if (worst === null || p.varCpr > period.platforms[worst].varCpr) worst = k;
+  });
+  const bestP = period.platforms[best], worstP = period.platforms[worst];
+
+  const p1 = "Nas datas de <strong>" + esc(period.atualRangeLabel) + "</strong>, a " + esc(pageName) +
+    " investiu <strong>" + esc(fmtBRL.format(t.atual.invest)) + "</strong> em mídia paga (Meta, Google e TikTok), " +
+    esc(Math.abs(t.varInvest).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})) + "% " + investWord +
+    " na comparação com as mesmas datas do mês anterior. Foram gerados <strong>" + esc(fmtInt.format(t.atual.results)) +
+    " resultados</strong> no período, uma " + resultWord + " de " + esc(Math.abs(t.varResults).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})) +
+    "% frente ao mês anterior — e o custo por resultado " + cprWord + " para <strong>" + esc(fmtBRL.format(t.atual.cpr)) +
+    "</strong> (" + esc(fmtPct(t.varCpr)) + ").";
+
+  const p2 = esc(bestP.name) + " teve a melhor evolução de custo por resultado do ciclo (" + esc(fmtPct(bestP.varCpr)) +
+    "), enquanto " + esc(worstP.name) + " foi quem mais perdeu eficiência (" + esc(fmtPct(worstP.varCpr)) +
+    "). Os detalhes por plataforma, dia a dia, estão logo abaixo.";
+
+  return '<p>' + p1 + '</p><p>' + p2 + '</p>';
+}
+
+/* =========================================================
+   9. RENDERIZAÇÃO
+   ========================================================= */
+
+function kpiTile(label, valueAtual, valueAnterior, delta, metric, formatter){
+  return '' +
+  '<div class="kpi-tile">' +
+    '<div class="klabel">'+esc(label)+'</div>' +
+    '<div class="kvalue">'+esc(formatter(valueAtual))+'</div>' +
+    '<div class="kfoot">' +
+      '<span class="kprev">vs. '+esc(formatter(valueAnterior))+' no mês anterior</span>' +
+      pillHTML(delta, metric) +
+    '</div>' +
+  '</div>';
+}
+
+function statBlock(label, atualVal, anteriorVal, delta, metric, formatter){
+  return '' +
+  '<div class="stat">' +
+    '<div class="slabel">'+esc(label)+'</div>' +
+    '<div class="svalue">'+esc(formatter(atualVal))+'</div>' +
+    '<div class="sfoot">' +
+      '<span class="sprev">ant. '+esc(formatter(anteriorVal))+'</span>' +
+      pillHTML(delta, metric) +
+    '</div>' +
+  '</div>';
+}
+
+function renderPlatformSection(el, key, platform){
+  const style = PLATFORM_STYLE[key];
+  el.innerHTML =
+  '<div class="section-head"><h3>'+esc(platform.name)+'</h3><span class="sub">'+platform.sub+'</span></div>' +
+  '<div class="card platform-card">' +
+    '<div class="platform-head">' +
+      '<div class="platform-id">' +
+        '<div class="p-icon" style="background:'+style.dark+';">'+style.icon(style.solidText)+'</div>' +
+        '<div><h3>'+esc(platform.name)+'</h3><div class="p-sub">Atual vs. mesmas datas do mês anterior</div></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="stat-row">' +
+      statBlock("Investimento", platform.atual.invest, platform.anterior.invest, platform.varInvest, "invest", fmtBRL.format.bind(fmtBRL)) +
+      statBlock("Resultados", platform.atual.results, platform.anterior.results, platform.varResults, "results", fmtInt.format.bind(fmtInt)) +
+      statBlock("Custo por resultado", platform.atual.cpr, platform.anterior.cpr, platform.varCpr, "cpr", fmtBRL.format.bind(fmtBRL)) +
+    '</div>' +
+    '<div class="platform-body">' +
+      '<div class="chart-box">' +
+        '<div class="chart-title">Investimento por dia</div>' +
+        '<div class="chart-unit">Reais (R$) · barra escura = atual, clara = mês anterior</div>' +
+        '<div class="legend-row">' +
+          '<span class="key"><span class="swatch" style="background:'+style.dark+';"></span>Atual</span>' +
+          '<span class="key"><span class="swatch" style="background:'+style.light+';"></span>Mesmas datas, mês anterior</span>' +
+        '</div>' +
+        '<div class="daily-chart"></div>' +
+      '</div>' +
+      '<div>' +
+        renderTable(platform) +
+      '</div>' +
+    '</div>' +
+  '</div>';
+
+  renderDailyChart(el.querySelector(".daily-chart"), platform, style, function(v){ return fmtBRL.format(v); }, "R$");
+}
+
+function renderAll(pageObj, period){
+  document.getElementById("report-tag-text").textContent = pageObj.name + " · " + period.label;
+  document.getElementById("intro-range").innerHTML =
+    "Período atual: <strong>" + esc(period.atualRangeLabel) + "</strong> &nbsp;|&nbsp; Período anterior: <strong>" + esc(period.anteriorRangeLabel) + "</strong>";
+  document.getElementById("intro-text").innerHTML = buildIntro(pageObj.name, period);
+
+  const t = period.totals;
+  document.getElementById("kpi-row").innerHTML =
+    kpiTile("Investimento total", t.atual.invest, t.anterior.invest, t.varInvest, "invest", function(v){ return fmtBRL.format(v); }) +
+    kpiTile("Resultados totais", t.atual.results, t.anterior.results, t.varResults, "results", function(v){ return fmtInt.format(v); }) +
+    kpiTile("Custo por resultado médio", t.atual.cpr, t.anterior.cpr, t.varCpr, "cpr", function(v){ return fmtBRL.format(v); });
+
+  const compareGrid = document.getElementById("compare-grid");
+  compareGrid.innerHTML =
+    '<div class="card compare-card"><div class="ctitle">Investimento por plataforma</div><div class="cunit">Reais (R$), período atual</div><div class="cchart-invest"></div></div>' +
+    '<div class="card compare-card"><div class="ctitle">Resultados por plataforma</div><div class="cunit">Quantidade, período atual</div><div class="cchart-results"></div></div>' +
+    '<div class="card compare-card"><div class="ctitle">Custo por resultado</div><div class="cunit">Reais (R$), período atual</div><div class="cchart-cpr"></div></div>';
+  renderPlatformCompareChart(compareGrid.querySelector(".cchart-invest"), period, "invest", function(v){ return fmtBRL.format(v); });
+  renderPlatformCompareChart(compareGrid.querySelector(".cchart-results"), period, "results", function(v){ return fmtInt.format(v); });
+  renderPlatformCompareChart(compareGrid.querySelector(".cchart-cpr"), period, "cpr", function(v){ return fmtBRL.format(v); });
+
+  PLATFORM_ORDER.forEach(function(key){
+    renderPlatformSection(document.getElementById(key), key, period.platforms[key]);
+  });
+
+  document.getElementById("footer-note").textContent =
+    "Fonte dos dados: relatório interno de mídia paga · atualizado a cada ciclo de 2 dias.";
+}
+
+/* =========================================================
+   10. SELETORES
+   ========================================================= */
+
+const selPage = document.getElementById("sel-page");
+const selPeriod = document.getElementById("sel-period");
+
+function populatePages(){
+  selPage.innerHTML = DATA.pages.map(function(p){ return '<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>'; }).join("");
+}
+
+function populatePeriods(pageObj){
+  selPeriod.innerHTML = pageObj.periods.map(function(pe){ return '<option value="'+esc(pe.id)+'">'+esc(pe.label)+'</option>'; }).join("");
+}
+
+function currentPage(){
+  return DATA.pages.find(function(p){ return p.id === selPage.value; }) || DATA.pages[0];
+}
+function currentPeriod(pageObj){
+  return pageObj.periods.find(function(pe){ return pe.id === selPeriod.value; }) || pageObj.periods[pageObj.periods.length - 1];
+}
+
+function refresh(){
+  const pageObj = currentPage();
+  const period = currentPeriod(pageObj);
+  renderAll(pageObj, period);
+}
+
+selPage.addEventListener("change", function(){
+  const pageObj = currentPage();
+  populatePeriods(pageObj);
+  refresh();
+});
+selPeriod.addEventListener("change", refresh);
+
+populatePages();
+populatePeriods(currentPage());
+refresh();
+
+})();
+</script>
+</body>
+</html>
