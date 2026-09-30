@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel Renover Digital</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
 <style>
 html,body{margin:0;}
 img{max-width:100%;}
 [hidden]{display:none!important;}
 </style>
+<title>Painel Renover Digital</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
 <style>
   :root{
     --bg:#eef5fc;
@@ -538,8 +538,7 @@ img{max-width:100%;}
     .field{min-width:100%;}
   }
 </style>
-</head>
-<body>
+
 <div class="page">
 
   <header class="topbar">
@@ -619,6 +618,58 @@ const DATA = {
       id: "granazen",
       name: "GranaZen",
       periods: [
+        {
+          id: "2026-09-28_29",
+          label: "28–29 set/2026",
+          atualRangeLabel: "28 a 29 de setembro de 2026",
+          anteriorRangeLabel: "28 a 29 de agosto de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "28/09", period: "atual", invest: 349.98, results: 2, cpr: 174.99 },
+                { date: "29/09", period: "atual", invest: 318.99, results: 10, cpr: 31.9 },
+                { date: "28/08", period: "anterior", invest: 538.72, results: 8, cpr: 67.34 },
+                { date: "29/08", period: "anterior", invest: 370.72, results: 5, cpr: 74.14 }
+              ],
+              atual:    { invest: 668.97, results: 12, cpr: 55.75 },
+              anterior: { invest: 909.44, results: 13, cpr: 69.96 },
+              varInvest: -26.44, varResults: -7.69, varCpr: -20.31
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "28/09", period: "atual", invest: 490.37, results: 9, cpr: 54.49 },
+                { date: "29/09", period: "atual", invest: 642.67, results: 12, cpr: 53.56 },
+                { date: "28/08", period: "anterior", invest: 443.9, results: 14, cpr: 31.71 },
+                { date: "29/08", period: "anterior", invest: 440.00, results: 14, cpr: 31.43 }
+              ],
+              atual:    { invest: 1133.04, results: 21, cpr: 53.95 },
+              anterior: { invest: 883.9, results: 28, cpr: 31.57 },
+              varInvest: 28.19, varResults: -25.00, varCpr: 70.89
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "28/09", period: "atual", invest: 51.08, results: 2, cpr: 25.54 },
+                { date: "29/09", period: "atual", invest: 11.1, results: 0, cpr: 0.00 },
+                { date: "28/08", period: "anterior", invest: 38.62, results: 0, cpr: 0.00 },
+                { date: "29/08", period: "anterior", invest: 60.94, results: 0, cpr: 0.00 }
+              ],
+              atual:    { invest: 62.18, results: 2, cpr: 31.09 },
+              anterior: { invest: 99.56, results: 0, cpr: 0.00 },
+              varInvest: -37.55, varResults: 0.00, varCpr: 0.00
+            }
+          },
+          totals: {
+            atual:    { invest: 1864.19, results: 35, cpr: 53.26 },
+            anterior: { invest: 1892.9, results: 41, cpr: 46.17 },
+            varInvest: -1.52, varResults: -14.63, varCpr: 15.36
+          }
+        },
         {
           id: "2026-09-19_20",
           label: "19–20 set/2026",
@@ -1352,5 +1403,3 @@ refresh();
 
 })();
 </script>
-</body>
-</html>
