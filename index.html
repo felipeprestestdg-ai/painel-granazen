@@ -619,6 +619,99 @@ const DATA = {
       name: "GranaZen",
       periods: [
         {
+          id: "2026-10-14_15",
+          label: "14–15 out/2026",
+          atualRangeLabel: "14 a 15 de outubro de 2026",
+          anteriorRangeLabel: "14 a 15 de setembro de 2026 (mesmas datas, mês anterior)",
+          tiktokNote: "Os números do TikTok Ads deste ciclo estão em consolidação e entram na próxima atualização do painel.",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "14/10", period: "atual", invest: 295.02, results: 8, cpr: 36.88 },
+                { date: "15/10", period: "atual", invest: 302.75, results: 7, cpr: 43.25 },
+                { date: "14/09", period: "anterior", invest: 464.62, results: 7, cpr: 66.37 },
+                { date: "15/09", period: "anterior", invest: 482.05, results: 6, cpr: 80.34 }
+              ],
+              atual:    { invest: 597.77, results: 15, cpr: 39.85 },
+              anterior: { invest: 946.67, results: 13, cpr: 72.82 },
+              varInvest: -36.86, varResults: 15.38, varCpr: -45.28
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "14/10", period: "atual", invest: 778.66, results: 11, cpr: 70.79 },
+                { date: "15/10", period: "atual", invest: 1054.58, results: 20, cpr: 52.73 },
+                { date: "14/09", period: "anterior", invest: 500.05, results: 18, cpr: 27.78 },
+                { date: "15/09", period: "anterior", invest: 487.03, results: 23, cpr: 21.18 }
+              ],
+              atual:    { invest: 1833.24, results: 31, cpr: 59.14 },
+              anterior: { invest: 987.08, results: 41, cpr: 24.08 },
+              varInvest: 85.72, varResults: -24.39, varCpr: 145.60
+            },
+            tiktok: null
+          },
+          totals: {
+            atual:    { invest: 2431.01, results: 46, cpr: 52.85 },
+            anterior: { invest: 1933.75, results: 54, cpr: 35.81 },
+            varInvest: 25.71, varResults: -14.81, varCpr: 47.58
+          }
+        },
+        {
+          id: "2026-10-13_14",
+          label: "13–14 out/2026",
+          atualRangeLabel: "13 a 14 de outubro de 2026",
+          anteriorRangeLabel: "13 a 14 de setembro de 2026 (mesmas datas, mês anterior)",
+          platforms: {
+            meta: {
+              name: "Meta Ads",
+              sub: "Facebook &amp; Instagram",
+              days: [
+                { date: "13/10", period: "atual", invest: 300.43, results: 2, cpr: 150.22 },
+                { date: "14/10", period: "atual", invest: 294.79, results: 8, cpr: 36.85 },
+                { date: "13/09", period: "anterior", invest: 425.03, results: 7, cpr: 60.72 },
+                { date: "14/09", period: "anterior", invest: 464.62, results: 7, cpr: 66.37 }
+              ],
+              atual:    { invest: 595.22, results: 10, cpr: 59.52 },
+              anterior: { invest: 889.65, results: 14, cpr: 63.55 },
+              varInvest: -33.10, varResults: -28.57, varCpr: -6.34
+            },
+            google: {
+              name: "Google Ads",
+              sub: "Rede de Pesquisa &amp; Display",
+              days: [
+                { date: "13/10", period: "atual", invest: 879.01, results: 6, cpr: 146.50 },
+                { date: "14/10", period: "atual", invest: 778.59, results: 11, cpr: 70.78 },
+                { date: "13/09", period: "anterior", invest: 514.00, results: 14, cpr: 36.71 },
+                { date: "14/09", period: "anterior", invest: 500.05, results: 18, cpr: 27.78 }
+              ],
+              atual:    { invest: 1657.60, results: 17, cpr: 97.51 },
+              anterior: { invest: 1014.05, results: 32, cpr: 31.69 },
+              varInvest: 63.46, varResults: -46.88, varCpr: 207.70
+            },
+            tiktok: {
+              name: "TikTok Ads",
+              sub: "In-Feed &amp; Spark Ads",
+              days: [
+                { date: "13/10", period: "atual", invest: 62.50, results: 0, cpr: 0.00 },
+                { date: "14/10", period: "atual", invest: 50.50, results: 2, cpr: 25.25 },
+                { date: "13/09", period: "anterior", invest: 51.20, results: 6, cpr: 8.53 },
+                { date: "14/09", period: "anterior", invest: 38.98, results: 0, cpr: 0.00 }
+              ],
+              atual:    { invest: 113.00, results: 2, cpr: 56.50 },
+              anterior: { invest: 90.18, results: 6, cpr: 15.03 },
+              varInvest: 25.30, varResults: -66.67, varCpr: 275.91
+            }
+          },
+          totals: {
+            atual:    { invest: 2365.82, results: 29, cpr: 81.58 },
+            anterior: { invest: 1993.88, results: 52, cpr: 38.34 },
+            varInvest: 18.65, varResults: -44.23, varCpr: 112.78
+          }
+        },
+        {
           id: "2026-10-09_12",
           label: "09–12 out/2026",
           atualRangeLabel: "09 a 12 de outubro de 2026",
@@ -1594,11 +1687,12 @@ function renderPlatformCompareChart(container, period, metricKey, formatter){
   const W = 340, H = 168;
   const padL = 10, padR = 10, padT = 10, padB = 30;
   const plotW = W - padL - padR, plotH = H - padT - padB;
-  const n = PLATFORM_ORDER.length;
+  const availKeys = PLATFORM_ORDER.filter(function(k){ return !!period.platforms[k]; });
+  const n = availKeys.length;
   const slot = plotW / n;
   const barW = Math.min(48, slot * 0.5);
 
-  const vals = PLATFORM_ORDER.map(k => period.platforms[k].atual[metricKey]);
+  const vals = availKeys.map(k => period.platforms[k].atual[metricKey]);
   const maxVal = Math.max(1, ...vals);
   const niceMax = maxVal * 1.3;
   function y(v){ return padT + plotH - (v / niceMax) * plotH; }
@@ -1611,7 +1705,7 @@ function renderPlatformCompareChart(container, period, metricKey, formatter){
   }
 
   let bars = "";
-  PLATFORM_ORDER.forEach(function(k, i){
+  availKeys.forEach(function(k, i){
     const p = period.platforms[k];
     const style = PLATFORM_STYLE[k];
     const v = p.atual[metricKey];
@@ -1632,7 +1726,7 @@ function renderPlatformCompareChart(container, period, metricKey, formatter){
     '</svg>';
 
   const svg = container.querySelector("svg");
-  PLATFORM_ORDER.forEach(function(k){
+  availKeys.forEach(function(k){
     const el = svg.querySelector('[data-tip-plat="'+k+'"]');
     const p = period.platforms[k];
     bindTip(el, function(){ return '<strong>'+esc(formatter(p.atual[metricKey]))+'</strong> · '+esc(p.name); });
@@ -1675,16 +1769,23 @@ function buildIntro(pageName, period){
   const resultWord = t.varResults >= 0 ? "alta" : "queda";
   const cprWord = t.varCpr >= 0 ? "subiu" : "caiu";
 
+  const availKeys = PLATFORM_ORDER.filter(function(k){ return !!period.platforms[k]; });
+
   let best = null, worst = null;
-  PLATFORM_ORDER.forEach(function(k){
+  availKeys.forEach(function(k){
     const p = period.platforms[k];
     if (best === null || p.varCpr < period.platforms[best].varCpr) best = k;
     if (worst === null || p.varCpr > period.platforms[worst].varCpr) worst = k;
   });
   const bestP = period.platforms[best], worstP = period.platforms[worst];
 
+  const platformNames = availKeys.map(function(k){ return period.platforms[k].name; });
+  const platformsListText = platformNames.length <= 1
+    ? platformNames.join("")
+    : platformNames.slice(0, -1).join(", ") + " e " + platformNames[platformNames.length - 1];
+
   const p1 = "Nas datas de <strong>" + esc(period.atualRangeLabel) + "</strong>, a " + esc(pageName) +
-    " investiu <strong>" + esc(fmtBRL.format(t.atual.invest)) + "</strong> em mídia paga (Meta, Google e TikTok), " +
+    " investiu <strong>" + esc(fmtBRL.format(t.atual.invest)) + "</strong> em mídia paga (" + esc(platformsListText) + "), " +
     esc(Math.abs(t.varInvest).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})) + "% " + investWord +
     " na comparação com as mesmas datas do mês anterior. Foram gerados <strong>" + esc(fmtInt.format(t.atual.results)) +
     " resultados</strong> no período, uma " + resultWord + " de " + esc(Math.abs(t.varResults).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})) +
@@ -1695,7 +1796,9 @@ function buildIntro(pageName, period){
     "), enquanto " + esc(worstP.name) + " foi quem mais perdeu eficiência (" + esc(fmtPct(worstP.varCpr)) +
     "). Os detalhes por plataforma, dia a dia, estão logo abaixo.";
 
-  return '<p>' + p1 + '</p><p>' + p2 + '</p>';
+  const p3 = period.tiktokNote ? ('<p>' + esc(period.tiktokNote) + '</p>') : '';
+
+  return '<p>' + p1 + '</p><p>' + p2 + '</p>' + p3;
 }
 
 /* =========================================================
@@ -1761,6 +1864,23 @@ function renderPlatformSection(el, key, platform){
   renderDailyChart(el.querySelector(".daily-chart"), platform, style, function(v){ return fmtBRL.format(v); }, "R$");
 }
 
+function renderPlatformUnavailable(el, key, note){
+  const style = PLATFORM_STYLE[key];
+  const names = { meta: "Meta Ads", google: "Google Ads", tiktok: "TikTok Ads" };
+  const subs = { meta: "Facebook &amp; Instagram", google: "Rede de Pesquisa &amp; Display", tiktok: "In-Feed &amp; Spark Ads" };
+  el.innerHTML =
+  '<div class="section-head"><h3>'+esc(names[key])+'</h3><span class="sub">'+subs[key]+'</span></div>' +
+  '<div class="card platform-card">' +
+    '<div class="platform-head">' +
+      '<div class="platform-id">' +
+        '<div class="p-icon" style="background:'+style.dark+';opacity:.45;">'+style.icon(style.solidText)+'</div>' +
+        '<div><h3>'+esc(names[key])+'</h3><div class="p-sub">Em consolida\u00e7\u00e3o</div></div>' +
+      '</div>' +
+    '</div>' +
+    '<p style="margin:0;font-size:13px;color:var(--ink-2);line-height:1.6;max-width:62ch;">'+esc(note)+'</p>' +
+  '</div>';
+}
+
 function renderAll(pageObj, period){
   document.getElementById("report-tag-text").textContent = pageObj.name + " · " + period.label;
   document.getElementById("intro-range").innerHTML =
@@ -1783,7 +1903,13 @@ function renderAll(pageObj, period){
   renderPlatformCompareChart(compareGrid.querySelector(".cchart-cpr"), period, "cpr", function(v){ return fmtBRL.format(v); });
 
   PLATFORM_ORDER.forEach(function(key){
-    renderPlatformSection(document.getElementById(key), key, period.platforms[key]);
+    const p = period.platforms[key];
+    const el = document.getElementById(key);
+    if (p){
+      renderPlatformSection(el, key, p);
+    } else {
+      renderPlatformUnavailable(el, key, period.tiktokNote || "Dados indispon\u00edveis neste ciclo.");
+    }
   });
 
   document.getElementById("footer-note").textContent =
